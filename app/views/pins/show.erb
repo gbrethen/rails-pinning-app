@@ -1,21 +1,25 @@
 <div class="header">
   <h1>
+	<i class="fa fa-laptop"></i>
     <%= "#{@pin.title}" %>
   </h1>
 </div>
 
-<div class="show-pin">
-  <p><%= "#{@pin.text}" %></p>
+<div class="panel panel-default">
+	<div class="panel-body">
+	  <p><%= "#{@pin.text}" %></p>
 
-  <hr/>
-  <p>
-    <b>Visit <%= "#{@pin.title}" %> at: </b>
-    <a class="url" href="<%= "#{@pin.url}" %>" target="_blank">
-      <%= "#{@pin.url}" %>
-    </a>
-  </p>
+	  <hr/>
+	  <p>
+		<b>Visit <%= "#{@pin.title}" %> at: </b>
+		<a class="url" href="<%= "#{@pin.url}" %>" target="_blank">
+		  <%= "#{@pin.url}" %>
+		</a>
+	  </p>
+	</div>
 </div>
 <br/>
 <a href="/">
+	<i class="fa fa-home" aria-hidden="true"></i>
   Back to Home
 </a>
