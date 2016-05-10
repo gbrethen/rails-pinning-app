@@ -29,9 +29,26 @@ class PinsController < ApplicationController
 	end
   end
   
+  def edit
+	@pin = Pin.find(params[:id])
+	render :edit
+  end
+  
+  def update
+	@pin = Pin.find(params[:id])
+		
+	if @pin.update_attributes(pin_params)
+		redirect_to pin_path(@pin)
+	else
+		@errors = @pin.errors
+		render :edit
+	end
+  end
+  
  private #every method below this is a private method
   
   def pin_params
-	params.require(:pin).permit(:title, :url, :slug, :text, :category_id)
+	params.require(:pin).permit(:title, :category_id, :url, :text, :slug)
   end
+  
 end
