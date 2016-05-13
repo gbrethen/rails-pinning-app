@@ -15,43 +15,6 @@
 			</ul>
 		</div>
 	<% end %>
-	<%= form_for(@pin, :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
-		<div class="form-group">
-			<label for="pin_title" class="col-md-2 control-label">Title</label>
-			<div class="col-md-4">
-				<%= fbo.text_field :title, class: 'form-control' %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="pin_category_id" class="col-md-2 control-label">Category</label>
-			<div class="col-md-3">
-				<%= fbo.collection_select(:category_id, Category.all, :id, :name, {}, {:class => 'form-control'}) %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="pin_url" class="col-md-2 control-label">URL</label>
-			<div class="col-md-4">
-				<%= fbo.text_field :url, class: 'form-control' %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="pin_text" class="col-md-2 control-label">Text</label>
-			<div class="col-md-6">
-				<%= fbo.text_area :text, class: 'form-control', rows: 3 %>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="pin_slug" class="col-md-2 control-label">Slug</label>
-			<div class="col-md-4">
-				<%= fbo.text_field :slug, class: 'form-control' %>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-md-2"></div>
-			<div class="col-md-4">
-				<%= fbo.submit 'Create Pin', :class => 'btn btn-default' %>
-			</div>
-		</div>
-	<% end %>
+	<%= render "form" %>
   </div>
  </div>
