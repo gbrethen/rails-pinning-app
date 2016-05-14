@@ -7,8 +7,10 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
-	  <p><%= "#{@pin.text}" %></p>
-
+	  <div class="row">
+		<div class="col-md-1"><img src="<%= @pin.image.url(:thumb) %>"></div>
+		<div class="col-md-3"><p><%= "#{@pin.text}" %></p></div>
+	  </div>
 	  <hr/>
 	  <p>
 		<b>Visit <%= "#{@pin.title}" %> at: </b>

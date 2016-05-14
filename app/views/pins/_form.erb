@@ -1,4 +1,4 @@
-<%= form_for(@pin, :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
+<%= form_for(@pin, multipart: true, :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
 		<div class="form-group">
 			<label for="pin_title" class="col-md-2 control-label">Title</label>
 			<div class="col-md-4">
@@ -27,6 +27,12 @@
 			<label for="pin_slug" class="col-md-2 control-label">Slug</label>
 			<div class="col-md-4">
 				<%= fbo.text_field :slug, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="pin_image" class="col-md-2 control-label">Image</label>
+			<div class="col-md-8">
+				<%= fbo.file_field :image, class: 'form-control' %>
 			</div>
 		</div>
 		<div class="form-group">
