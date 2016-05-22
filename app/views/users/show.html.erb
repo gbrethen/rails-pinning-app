@@ -1,0 +1,32 @@
+<div class="header">
+  <h1>User Info</h1>
+</div>
+<hr/>
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<p>
+		  <strong>First name:</strong>
+		  <%= @user.first_name %>
+		</p>
+
+		<p>
+		  <strong>Last name:</strong>
+		  <%= @user.last_name %>
+		</p>
+
+		<p>
+		  <strong>Email:</strong>
+		  <%= @user.email %>
+		</p>
+
+		<p>
+		  <strong>Password:</strong>
+		  <%= @user.password %>
+		</p>
+	</div>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
