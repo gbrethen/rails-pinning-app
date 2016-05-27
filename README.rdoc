@@ -11,11 +11,11 @@ Things you may want to cover:
 
 * Configuration
 
-* Database creation
+* Database creation - rake db:migrate
 
 * Database initialization
 
-* How to run the test suite
+* How to run the test suite - rspec used for testing.
 
 * Services (job queues, cache servers, search engines, etc.)
 
