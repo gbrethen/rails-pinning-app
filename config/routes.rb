@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get "login" => "users#login", as: :login
   
   post "/login" => "users#authenticate"
+  
+  delete "logout/:id" => "users#logout", as: :logout
 
   resources :pins
   

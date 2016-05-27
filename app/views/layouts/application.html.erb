@@ -12,6 +12,14 @@
 </head>
 <body>
   <div class="container">
+	<div class="pull-right">
+		<h3>
+			<%= if !session[:user_id].nil? then "Hi, #{current_user.first_name}! | " end %>  
+			<%= if !session[:user_id].nil? then 
+			  link_to "Logout", logout_path(current_user), method: :delete
+			 end  %>
+		</h3>
+	</div>
     <%= yield %>
   </div>
 </body>
