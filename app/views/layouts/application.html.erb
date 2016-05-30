@@ -11,6 +11,15 @@
 		bottom: 0;
 		margin-bottom: 10px;
 	}
+	
+	.user-container{
+	  padding: 10px;
+	}
+	.user {
+	  padding: 20px;
+	  background-color: #fff;
+	  border: 1px solid #efefef;
+	}
   </style>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'jquery-1.12.3.min', 'data-turbolinks-track' => true %>
@@ -20,12 +29,40 @@
 <body>
   <div class="container">
 	<div class="pull-right">
-		<h3>
-			<%= if !session[:user_id].nil? then "Hi, #{current_user.first_name}! | " end %>  
-			<%= if !session[:user_id].nil? then 
-			  link_to "Logout", logout_path(current_user), method: :delete
-			 end  %>
-		</h3>
+			<% if logged_in? %>
+				<input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>"/>
+				<div class="dropdown">
+					<button id="dropdownMenu1" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<%= current_user.first_name %>
+						<span class="caret"></span>
+					</button>
+ 
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<% current_user.boards.each do |board| %>
+							<li role="presentation">
+								<a role="menuitem" tabindex="-1" href="boards/<%= board.id %>">
+									<%= board.name %>
+								</a>
+							</li>
+						<% end %>
+							<li role="presentation" class="divider"></li>
+							<li role="presentation">
+								<%= link_to "Add a Pin", new_pin_path, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>
+							<li role="presentation">
+								<%= link_to "Add a Board", new_board_path, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>        
+							<li role="presentation" class="divider"></li>
+							<li role="presentation">
+								<%= link_to "Home", root_path, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>                
+							<li role="presentation">
+								<%= link_to "Logout", logout_path(current_user), :method => :delete, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>
+					</ul>
+ 				</div>
+				
+			<% end %>		
 	</div>
     <%= yield %>
   </div>

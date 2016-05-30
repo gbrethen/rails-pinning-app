@@ -10,4 +10,6 @@ class Pin < ActiveRecord::Base
   has_many :users, through: :pinnings
   belongs_to :user
   
+  accepts_nested_attributes_for :pinnings
+  
 end

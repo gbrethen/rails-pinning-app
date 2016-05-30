@@ -16,4 +16,5 @@ class User < ActiveRecord::Base
 		
 	has_many :pinnings, dependent: :destroy
 	has_many :pins, through: :pinnings
+	has_many :boards
 end

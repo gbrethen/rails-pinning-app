@@ -1,43 +1,52 @@
 <%= form_for(@pin, multipart: true, :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
 		<%= fbo.hidden_field :user_id, value: current_user.id %>
 		<div class="form-group">
-			<label for="pin_title" class="col-md-2 control-label">Title</label>
+			<label for="pin_title" class="col-md-3 control-label">Title</label>
 			<div class="col-md-4">
 				<%= fbo.text_field :title, class: 'form-control' %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="pin_category_id" class="col-md-2 control-label">Category</label>
+			<label for="pin_category_id" class="col-md-3 control-label">Category</label>
 			<div class="col-md-3">
 				<%= fbo.collection_select(:category_id, Category.all, :id, :name, {}, {:class => 'form-control'}) %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="pin_url" class="col-md-2 control-label">URL</label>
+			<label for="pin_url" class="col-md-3 control-label">URL</label>
 			<div class="col-md-4">
 				<%= fbo.text_field :url, class: 'form-control' %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="pin_text" class="col-md-2 control-label">Text</label>
+			<label for="pin_text" class="col-md-3 control-label">Text</label>
 			<div class="col-md-6">
 				<%= fbo.text_area :text, class: 'form-control', rows: 3 %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="pin_slug" class="col-md-2 control-label">Slug</label>
+			<label for="pin_slug" class="col-md-3 control-label">Slug</label>
 			<div class="col-md-4">
 				<%= fbo.text_field :slug, class: 'form-control' %>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="pin_image" class="col-md-2 control-label">Image</label>
+			<label for="pin_image" class="col-md-3 control-label">Image</label>
 			<div class="col-md-8">
 				<%= fbo.file_field :image, class: 'form-control' %>
 			</div>
 		</div>
+		<%= fbo.fields_for :pinning do |p| %>
+			<div class="form-group">
+				<label for="pin_pinning_board_id" class="col-md-3 control-label">Which board?</label>
+				<div class="col-md-6">
+					<%= p.collection_select(:board_id, current_user.boards, :id, :name, {}, {class: "form-control"}) %>
+				</div>
+				<%= p.hidden_field :user_id, value: current_user.id %> 
+			</div>
+		<% end %>  
 		<div class="form-group">
-			<div class="col-md-2"></div>
+			<div class="col-md-3"></div>
 			<div class="col-md-4">
 				<%= fbo.submit 'Submit', :class => 'btn btn-default' %>
 			</div>
