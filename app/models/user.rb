@@ -13,4 +13,7 @@ class User < ActiveRecord::Base
 		end
 		return nil
 	end
+		
+	has_many :pinnings, dependent: :destroy
+	has_many :pins, through: :pinnings
 end

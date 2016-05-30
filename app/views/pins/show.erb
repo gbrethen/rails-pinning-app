@@ -8,8 +8,8 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 	  <div class="row">
-		<div class="col-md-1"><img src="<%= @pin.image.url(:thumb) %>"></div>
-		<div class="col-md-3"><p><%= "#{@pin.text}" %></p></div>
+		<div class="col-md-4"><img src="<%= @pin.image.url(:thumb) %>"></div>
+		<div class="col-md-4"><p><%= "#{@pin.text}" %></p></div>
 	  </div>
 	  <hr/>
 	  <p>
@@ -18,8 +18,30 @@
 	  </p>
 	</div>
 </div>
+<div class="header">
+	<h3>Current Pinners:</h3>
+</div>
+<% @users.each_slice(3) do |row| %>
+    <div class="row">
+      <% row.each do |user| %>      
+        <div class="user-container col-md-4">
+          <div class="user col-xs-12">
+            <div class="row">
+				<div>
+					<%= "#{user.first_name}" %>&nbsp;<%= "#{user.last_name}" %>
+				</div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+<% end %>
 <br/>
 <a href="/">
 	<i class="fa fa-home" aria-hidden="true"></i>
   Back to Home
-</a>
+</a> | 
+<%= link_to repin_path(@pin), class: "btn btn-default", method: "post" do %>
+	<i class="fa fa-thumb-tack aria-hidden="true"></i>
+	Repin!
+<% end %>

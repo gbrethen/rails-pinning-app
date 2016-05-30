@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
   let(:invalid_attributes) {
     {
 		first_name: @user.first_name,
-		password: @user.password
+		last_name: @user.last_name
 	}
   }
 
@@ -132,6 +132,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update" do
+		
     context "with valid params" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
@@ -169,14 +170,14 @@ RSpec.describe UsersController, type: :controller do
     context "with invalid params" do
       it "assigns the user as @user" do
         user = User.create! valid_attributes
-		post :authenticate, {email: @user.email, password: @user.password}
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
+		post :authenticate, {email: user.email, password: user.password}
+        put :update, {:id => user[:id], :user => invalid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it "re-renders the 'edit' template" do
         user = User.create! valid_attributes
-		post :authenticate, {email: @user.email, password: @user.password}
+		post :authenticate, {email: user.email, password: user.password}
         put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
@@ -186,7 +187,7 @@ RSpec.describe UsersController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested user" do
       user = User.create! valid_attributes
-	  post :authenticate, {email: @user.email, password: @user.password}
+	  post :authenticate, {email: user.email, password: user.password}
       expect {
         delete :destroy, {:id => user.to_param}, valid_session
       }.to change(User, :count).by(-1)
@@ -207,39 +208,28 @@ RSpec.describe UsersController, type: :controller do
   end
   
   describe "POST login" do
-	before(:all) do
-		@user = User.create(email: "coder@skillcrush.com", password: "secret")
-		@valid_user_hash = {email: @user.email, password: @user.password}
-		@invalid_user_hash = {email: "", password: ""}
-	end
-	
-	after(:all) do
-		if !@user.destroyed?
-			@user.destroy
-		end
-	end
-	
 	it "renders the show view if params valid" do
-		post :authenticate, @valid_user_hash
+		user = User.create! valid_attributes
+		post :authenticate, {email: user.email, password: user.password}
 		#user = User.authenticate(@valid_user_hash[:email], @valid_user_hash[:password])
-		expect(response).to redirect_to("user_path(@user)")
+		expect(response).to redirect_to(user_path(user.id))
 	end
 	
 	it "populates @user if params valid" do
-		post :authenticate, @valid_user_hash
-		user = User.authenticate(@valid_user_hash[:email], @valid_user_hash[:password])
+		user = User.create! valid_attributes
+		post :authenticate, valid_attributes
 		expect(assigns(:user)).to eq(user)
 	end
 	
 	it "renders the login view if the params are invalid" do
-		post :authenticate, @invalid_user_hash
-		user = User.authenticate(@valid_user_hash[:email], @valid_user_hash[:password])
+		user = User.create! valid_attributes
+		post :authenticate, invalid_attributes
 		expect(response).to render_template("login")
 	end
 	
 	it "populates the @errors variable if params are invalid" do
-		post :authenticate, @invalid_user_hash
-		user = User.authenticate(@valid_user_hash[:email], @valid_user_hash[:password])
+		user = User.create! valid_attributes
+		post :authenticate, invalid_attributes
 		expect(assigns[:errors].present?).to be(true)
 	end
   end

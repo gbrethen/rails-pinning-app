@@ -1,5 +1,17 @@
 require 'spec_helper'
 RSpec.describe PinsController do
+	before(:each) do
+		@user = FactoryGirl.create(:user)
+		login(@user)
+	end
+	
+	after(:each) do
+		if !@user.destroyed?
+			@user.pinnings.destroy
+			@user.destroy
+		end
+	end
+
 	describe "GET index" do
 		it 'renders the index template' do
 			get :index
@@ -9,6 +21,12 @@ RSpec.describe PinsController do
 		it 'populates the @pins array with all pins' do
 			get :index
 			expect(assigns[:pins]).to eq(Pin.all) #use the rspec assign method to grab @pins
+		end
+		
+		it "redirects to login if user is not signed in" do
+		  logout(@user)
+		  get :index
+		  expect(response).to redirect_to(:login)
 		end
 	end
 	
@@ -27,6 +45,12 @@ RSpec.describe PinsController do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
     end
+	
+	it "redirects to login if user is not signed in" do
+		logout(@user)
+		get :new
+		expect(response).to redirect_to(:login)
+	end
   end
   
   describe "POST create" do
@@ -77,7 +101,8 @@ RSpec.describe PinsController do
       @pin_hash.delete(:title)
       post :create, pin: @pin_hash
       expect(assigns[:errors].present?).to be(true)
-    end    
+    end
+
   end
   
   describe "GET edit" do
@@ -103,6 +128,11 @@ RSpec.describe PinsController do
       expect(assigns(:pin)).to eq(@pin)
     end
 	
+	it "redirects to login if user is not signed in" do
+		logout(@user)
+		get :edit, id: @pin.id 
+		expect(response).to redirect_to(:login)
+	end
   end
   
   describe "PUT update" do
@@ -155,6 +185,38 @@ RSpec.describe PinsController do
       expect(assigns[:errors].present?).to be(true)
     end
 	
+  end
+  
+  describe "POST repin" do
+	before(:each) do
+		@user = FactoryGirl.create(:user)
+		login(@user)
+		@pin = FactoryGirl.create(:pin)
+	end
+ 
+	after(:each) do
+		pin = Pin.find_by_slug("rails-wizard")
+		if !pin.nil?
+			pin.destroy
+		end
+		logout(@user)
+	end
+	
+	it 'responds with a redirect' do
+		#@pin.pinnings.create(user: @user)
+		post :repin, {:id => @pin.to_param}
+		expect(response).to be_redirect
+	end
+ 
+	it 'creates a user.pin' do
+		post :repin, {:id => @pin.to_param}
+		expect(@user.pins.present?).to be(true)
+	end
+ 
+	it 'redirects to the user show page' do
+		post :repin, {:id => @pin.to_param}
+		expect(response).to redirect_to(user_path(@user))
+	end
   end
   
 end

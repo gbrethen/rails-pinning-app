@@ -1,4 +1,5 @@
 <%= form_for(@pin, multipart: true, :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
+		<%= fbo.hidden_field :user_id, value: current_user.id %>
 		<div class="form-group">
 			<label for="pin_title" class="col-md-2 control-label">Title</label>
 			<div class="col-md-4">

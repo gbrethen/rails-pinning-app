@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post "/login" => "users#authenticate"
   
   delete "logout/:id" => "users#logout", as: :logout
+  
+  post "pins/repin/:id" => "pins#repin", as: 'repin'
 
   resources :pins
   
