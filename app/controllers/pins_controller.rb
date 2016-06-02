@@ -26,6 +26,7 @@ class PinsController < ApplicationController
 	
 	if @pin.valid?
 		@pin.save
+		#@pin.pinnings.create(params[:pinning][:user_id], @pin.id, params[:pinning][:board_id])
 		redirect_to pin_path(@pin)
 	else
 		@errors = @pin.errors

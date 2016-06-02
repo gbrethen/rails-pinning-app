@@ -1,0 +1,24 @@
+<% if logged_in? %>
+	<%= form_for(@pin, url: repin_path(@pin), method: "post", :html => {:class => 'col-md-8 form-horizontal'}) do |fbo| %>
+			<%= fbo.fields_for :pinning do |p| %>
+				<div class="form-group">
+					<label for="pin_pinning_board_id" class="col-md-4 control-label">Repin to one of your boards?</label>
+					<div class="col-md-6">
+						<%= p.collection_select(:board_id, current_user.boards, :id, :name, {}, {class: "form-control"}) %>
+					</div>
+					<%= p.hidden_field :user_id, value: current_user.id %> 
+				</div>
+			<% end %>  
+			<div class="form-group">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<%= fbo.button :submit, :class => 'btn btn-default' do %>
+					<i class="fa fa-thumb-tack aria-hidden="true"></i>
+					Repin!
+					<% end %>
+				</div>
+			</div>
+	<% end %>
+<% else %>
+	<%= link_to "Log in to repin!", login_path %>
+<% end %>

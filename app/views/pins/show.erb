@@ -36,12 +36,13 @@
       <% end %>
     </div>
 <% end %>
-<br/>
-<a href="/">
-	<i class="fa fa-home" aria-hidden="true"></i>
-  Back to Home
-</a> | 
-<%= link_to repin_path(@pin), class: "btn btn-default", method: "post" do %>
-	<i class="fa fa-thumb-tack aria-hidden="true"></i>
-	Repin!
-<% end %>
+<div class="row">
+	<%= render partial: "shared/repin_form" %>
+</div>
+<div class="row"> 
+	<a href="/">
+		<i class="fa fa-home" aria-hidden="true"></i>
+	  Back to Home
+	</a>
+</div>
+
