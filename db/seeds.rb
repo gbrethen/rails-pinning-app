@@ -52,3 +52,5 @@ User.create(
 	email: "jdoe@skillcrush.com",
 	password: "jdoe"
 )
+
+

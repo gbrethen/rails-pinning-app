@@ -2,12 +2,14 @@ require 'spec_helper'
 RSpec.describe PinsController do
 	before(:each) do
 		@user = FactoryGirl.create(:user)
+		@board = @user.boards.first
 		login(@user)
 	end
 	
 	after(:each) do
 		if !@user.destroyed?
-			@user.pinnings.destroy
+			@user.pinnings.destroy_all
+			@user.boards.destroy_all
 			@user.destroy
 		end
 	end
@@ -60,7 +62,9 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: "1"}    
+        category_id: "1",
+		user_id: "1",
+		pinning: {board_id: @board[:id], user_id: @user[:id]}}    
     end
     
     after(:each) do
