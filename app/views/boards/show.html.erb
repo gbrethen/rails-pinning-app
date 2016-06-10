@@ -20,6 +20,7 @@
 <hr/>
 <%= render partial: "shared/pins_list" %>
 <hr/>
-
-<%= link_to 'Edit', edit_board_path(@board) %> |
-<%= link_to 'Back', boards_path %>
+<% if @board.user_id == current_user.id %>
+	<%= link_to 'Edit', edit_board_path(@board) %> |
+	<%= link_to 'Back', boards_path %>
+<% end %>

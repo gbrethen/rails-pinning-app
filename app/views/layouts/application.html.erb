@@ -51,7 +51,13 @@
 							</li>
 							<li role="presentation">
 								<%= link_to "Add a Board", new_board_path, "role" => "menuitem", "tabindex" => "-1" %>
-							</li>        
+							</li>
+							<li role="presentation">
+								<%= link_to "Add a follower", new_follower_path, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>
+							<li role="presentation">
+								<%= link_to "Followers", followers_path, "role" => "menuitem", "tabindex" => "-1" %>
+							</li>  
 							<li role="presentation" class="divider"></li>
 							<li role="presentation">
 								<%= link_to "Home", root_path, "role" => "menuitem", "tabindex" => "-1" %>

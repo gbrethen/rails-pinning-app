@@ -13,6 +13,22 @@ class User < ActiveRecord::Base
 		end
 		return nil
 	end
+	
+	def followed
+		Follower.where("follower_id=?", self.id).map{|f| f.user}
+	end
+	
+	def not_followed
+		User.all - self.followed - [self]
+	end
+	
+	def user_followers
+		self.followers.map{ |f| User.find(f.follower_id) }
+	end
+	
+	def full_name
+		first_name + " " + last_name
+	end
 		
 	has_many :pinnings, dependent: :destroy
 	has_many :pins, through: :pinnings

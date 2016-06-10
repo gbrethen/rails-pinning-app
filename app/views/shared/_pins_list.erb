@@ -20,7 +20,7 @@
 				  <h4>
 					<%= link_to "#{pin.title}", pin_by_name_path(slug: pin.slug) %>
 				  </h4>
-				  <div style="width:100%;">
+				  <div style="width:98%; overflow:hidden; white-space:nowrap; text-overflow: ellipsis;">
 					<%= link_to "#{pin.url}", "#{pin.url}", html_options = {class: "url"} %>
 				  </div>
 				</div>
