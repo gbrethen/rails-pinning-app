@@ -29,8 +29,13 @@ class User < ActiveRecord::Base
 	def full_name
 		first_name + " " + last_name
 	end
+	
+	def pinnable_boards
+		self.boards + self.board_pinners.map{ |bp| bp.board }
+	end
 		
 	has_many :pinnings, dependent: :destroy
 	has_many :pins, through: :pinnings
 	has_many :boards
+	has_many :board_pinners
 end

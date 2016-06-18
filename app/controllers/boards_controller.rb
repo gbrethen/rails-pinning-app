@@ -5,14 +5,14 @@ class BoardsController < ApplicationController
   # GET /boards
   # GET /boards.json
   def index
-    @boards = Board.all
+    @boards = current_user.pinnable_boards
   end
 
   # GET /boards/1
   # GET /boards/1.json
   def show
-    @board = Board.find(params[:id])
-	@pins = current_user.pins
+    @board = current_user.boards.find(params[:id])
+	@pins = @board.pins
   end
 
   # GET /boards/new

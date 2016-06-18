@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    <%= f.text_field :user_id, :value => current_user.id %>
   </div>
   <% if !@followers.nil? %>
 	<%= f.fields_for :board_pinners do |p| %>
@@ -27,6 +27,6 @@
 	<% end %>
   <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Board', :class => 'btn btn-default' %>
   </div>
 <% end %>
