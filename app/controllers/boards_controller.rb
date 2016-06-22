@@ -22,6 +22,7 @@ class BoardsController < ApplicationController
 
   # GET /boards/1/edit
   def edit
+	@board = Board.find(params[:id])
 	@followers = current_user.user_followers
   end
 
@@ -44,6 +45,7 @@ class BoardsController < ApplicationController
   # PATCH/PUT /boards/1
   # PATCH/PUT /boards/1.json
   def update
+	@board = Board.find(params[:id])
     respond_to do |format|
       if @board.update(board_params)
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }

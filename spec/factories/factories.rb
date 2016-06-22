@@ -24,6 +24,15 @@ FactoryGirl.define do
 					user.pinnings.create(pin: FactoryGirl.create(:pin), board: user.boards.first)
 				end
 			end
+			
+			factory :user_with_boards_and_followers do
+				after(:create) do |user|
+					3.times do
+						follower = FactoryGirl.create(:user)
+						Follower.create(user: user, follower_id: follower.id)
+					end
+				end
+			end
 		end
 		
 		factory :user_with_followers do
