@@ -14,6 +14,14 @@ RSpec.describe BoardsController do
       @user.destroy
     end
   end
+  
+  describe "GET index" do
+	it 'board pinner sees all pinnable boards' do
+		get :index
+		expect(assigns(:boards)).to eq(@user.pinnable_boards)
+	end
+		
+  end
  
   describe "GET new" do
 	it 'responds with successfully' do
@@ -119,7 +127,7 @@ RSpec.describe BoardsController do
 		 
 		it 'sets @followers to the user\'s followers' do
 			get :edit, {:id => @board.to_param}
-			expect(assigns(:followers)).to eq(@user.followers)
+			expect(assigns(:followers)).to eq(@user.user_followers)
 		end
 	end
 	
