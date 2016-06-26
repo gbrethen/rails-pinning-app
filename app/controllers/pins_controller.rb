@@ -23,7 +23,7 @@ class PinsController < ApplicationController
   end
   
   def create
-	@pin = Pin.create!(pin_params)
+	@pin = Pin.create(pin_params)
 	
 	if @pin.valid?
 		@pin.save
@@ -58,6 +58,7 @@ class PinsController < ApplicationController
   def repin
 	@pin = Pin.find(params[:id])
 	@pin.pinnings.create(user: current_user)
+	@pinning = @pin.pinnings.where("user_id=?", current_user)
 	redirect_to user_path(current_user)
   end
   

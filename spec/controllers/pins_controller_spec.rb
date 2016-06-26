@@ -51,7 +51,8 @@ RSpec.describe PinsController do
 	
 	it 'assigns @pinnable_boards to all pinnable boards' do
 		get :new
-		expect(assigns(:pinnable_boards)).to eq(@pinnable_boards)
+		#pinnable_boards = @user.pinnable_boards
+		expect(assigns(:pinnable_boards).present?).to be(true)
 	end
 	
 	it "redirects to login if user is not signed in" do
@@ -253,9 +254,9 @@ RSpec.describe PinsController do
 	  board = @board_pinner.board
 	  @pin_hash[:pinning] = {board_id: board.id}
 	  post :repin, id: @pin.id, pin: @pin_hash
-	  pinning = <what should this be?>
+	  pinning = Pinning.where("board_id=?", board.id)
  
-	  <set expectation here>
+	  expect(pinning.present?).to be (true)
 	  if pinning.present?
 		pinning.destroy_all
 	  end

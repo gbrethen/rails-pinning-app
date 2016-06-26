@@ -21,7 +21,7 @@
 	  <div class="form-group">
 		<label for="user_id" class="col-md-2 control-label">User</label>
 		<div class="col-md-4">
-			<%= f.text_field :user_id, :value => current_user.id, class: 'form-control' %>
+			<%= f.text_field :user_id, :value => current_user.full_name, class: 'form-control' %>
 		</div>
 	  </div>
 	  <% if !@followers.nil? %>
@@ -35,7 +35,7 @@
 	  <div class="form-group">
 			<div class="col-md-2"></div>
 			<div class="col-md-4">
-				<%= f.submit 'Create Board', :class => 'btn btn-default' %>
+				<%= f.submit 'Submit Change', :class => 'btn btn-default' %>
 			</div>
 	  </div>
   </div>
