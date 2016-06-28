@@ -46,8 +46,9 @@ class BoardsController < ApplicationController
   # PATCH/PUT /boards/1.json
   def update
 	@board = Board.find(params[:id])
-	@board_pinner = BoardPinner.new(params[:board_pinners_attributes])
+	@board_pinner = BoardPinner.create(params[:board_pinners_attributes])
     respond_to do |format|
+	  board_params.delete(:board_pinners_attributes)
       if @board.update(board_params)
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }
         format.json { render :show, status: :ok, location: @board }

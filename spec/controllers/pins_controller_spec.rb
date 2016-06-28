@@ -3,7 +3,7 @@ RSpec.describe PinsController do
 	before(:each) do
 		@user = FactoryGirl.create(:user_with_boards)
 		@board = @user.boards.first
-		@board_pinner = BoardPinner.create(user: @user, board: FactoryGirl.create(:board))
+		@board_pinner = BoardPinner.create(user: @user, board: @board)
 		login(@user)
 	end
 	
