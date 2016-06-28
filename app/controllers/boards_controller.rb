@@ -48,8 +48,8 @@ class BoardsController < ApplicationController
 	@board = Board.find(params[:id])
 	@board_pinner = BoardPinner.create(params[:board_pinners_attributes])
     respond_to do |format|
-	  board_params.delete(:board_pinners_attributes)
-      if @board.update(board_params)
+	  update_hash = { name: board_params[:name] }
+      if @board.update(update_hash)
         format.html { redirect_to @board, notice: 'Board was successfully updated.' }
         format.json { render :show, status: :ok, location: @board }
       else
@@ -77,6 +77,6 @@ class BoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_params
-      params.require(:board).permit(:name, :user_id, board_pinners_attributes: [:user_id, :board_id])
+      params.require(:board).permit(:name, :user_id, board_pinners_attributes: [:user_id])
     end
 end
