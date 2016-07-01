@@ -188,12 +188,12 @@ RSpec.describe BoardsController do
 			# Now we're updating the hash we pass in to add 
 			# board_pinners_attributes with our user_id
 			@board_hash[:board_pinners_attributes] = []      
-			@board_hash[:board_pinners_attributes] << {user_id: user_to_let_pin.id}
+			@board_hash[:board_pinners_attributes] << {user_id: user_to_let_pin.user_id, board_id: @board.id}
  
 			put :update, id: @board.id, board: @board_hash
  
 			# Then we expect this record to have been created
-			board_pinner = BoardPinner.where("user_id=? AND board_id=?", user_to_let_pin.id, @board.id)
+			board_pinner = BoardPinner.where("user_id=? AND board_id=?", user_to_let_pin.user_id, @board.id)
 			puts BoardPinner.last.inspect
 			expect(board_pinner.present?).to be (true)
  
