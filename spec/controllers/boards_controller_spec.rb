@@ -183,7 +183,8 @@ RSpec.describe BoardsController do
  
 			# We get the user's first follower - this is the one we want to let pin on @board
 			user_to_let_pin = @user.followers.first
- 
+			puts user_to_let_pin.inspect
+			puts "user_to_let_pin: #{user_to_let_pin.id}, board id: #{@board.id}"
 			# Now we're updating the hash we pass in to add 
 			# board_pinners_attributes with our user_id
 			@board_hash[:board_pinners_attributes] = []      
@@ -193,6 +194,7 @@ RSpec.describe BoardsController do
  
 			# Then we expect this record to have been created
 			board_pinner = BoardPinner.where("user_id=? AND board_id=?", user_to_let_pin.id, @board.id)
+			puts BoardPinner.last.inspect
 			expect(board_pinner.present?).to be (true)
  
 			# Let's clean up here

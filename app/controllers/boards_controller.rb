@@ -46,7 +46,10 @@ class BoardsController < ApplicationController
   # PATCH/PUT /boards/1.json
   def update
 	@board = Board.find(params[:id])
-	@board_pinner = BoardPinner.create(params[:board_pinners_attributes])
+	bp_hash = board_params[:board_pinners_attributes]
+	@board_pinner = BoardPinner.create!(board_params[:board_pinners_attributes])
+	puts "user id: #{bp_hash}, board id: #{@board.id}"
+	puts @board_pinner.inspect
     respond_to do |format|
 	  update_hash = { name: board_params[:name] }
       if @board.update(update_hash)
@@ -77,6 +80,6 @@ class BoardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_params
-      params.require(:board).permit(:name, :user_id, board_pinners_attributes: [:user_id])
+      params.require(:board).permit(:name, :user_id, board_pinners_attributes: :user_id )
     end
 end
